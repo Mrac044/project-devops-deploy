@@ -1,6 +1,18 @@
+<<<<<<< HEAD
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/Mrac044/devops-engineer-from-scratch-project-315/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Mrac044/devops-engineer-from-scratch-project-315/actions)
+
+[![CI](https://github.com/Mrac044/devops-engineer-from-scratch-project-315/actions/workflows/ci.yml/badge.svg)](https://github.com/Mrac044/devops-engineer-from-scratch-project-315/actions/workflows/ci.yml)
+
+[![CD](https://github.com/Mrac044/devops-engineer-from-scratch-project-315/actions/workflows/cd.yml/badge.svg)](https://github.com/Mrac044/devops-engineer-from-scratch-project-315/actions/workflows/cd.yml)
+=======
 # Project DevOps Deploy
 
 Bulletin board service.
+
+## URL:
+
+- https://bulletin-board.servebeer.com
 
 > **Fork policy**: this upstream repository is read-only. We do not review or merge pull requests and we do not accept infrastructure changes (Dockerfiles, Ansible roles, CI/CD workflows, etc.). To experiment or extend the project, fork it and work inside your own repository.
 
@@ -21,7 +33,7 @@ Keep this structure in mind when running commands—backend tooling (`gradlew`, 
 Key variables are read directly by Spring Boot (see `src/main/resources/application.yml` and `application-prod.yml` for defaults):
 
 | Variable                     | Description                                                   | Default                                      |
-| ---------------------------- | ------------------------------------------------------------- | -------------------------------------------- |
+|------------------------------|---------------------------------------------------------------|----------------------------------------------|
 | `SPRING_PROFILES_ACTIVE`     | Active Spring profile (`dev`, `prod`, etc.)                   | `dev`                                        |
 | `SPRING_DATASOURCE_URL`      | JDBC URL for PostgreSQL in `prod`                             | `jdbc:postgresql://localhost:5432/bulletins` |
 | `SPRING_DATASOURCE_USERNAME` | DB username                                                   | `postgres`                                   |
@@ -197,3 +209,26 @@ Override the host/port with `MANAGEMENT_SERVER_PORT` if you changed it; no Prome
     - Image shows up in bulletin show view (URL should either point to CDN or be a presigned S3 link).
     - Object exists in S3 bucket (check via AWS console or `aws s3 ls s3://your-bucket/bulletins/...`).
 5. Optional: run `curl -I "$(curl -s .../api/files/view?key=... | jq -r .url)"` to ensure the presigned URL is valid from the production environment.
+>>>>>>> upstream/main
+
+## Запуск приложения в Docker
+
+Для сборки и запуска приложения используются команды из `Makefile`:
+
+1. **Сборка Docker-образа:**
+    ```bash
+   make docker-build
+    ```
+2. **Запуск контейнера:**
+
+    ```bash
+    make docker-run
+    ```
+После этого приложение будет доступно по адресу http://localhost:8080.
+
+3. **Остановка контейнера:**
+
+    ```bash
+    make docker-stop
+    ```
+

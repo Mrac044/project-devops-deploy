@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class BulletinController {
 
-    @Autowired private BulletinService service;
+    @Autowired
+    private BulletinService service;
 
     @PostMapping("/bulletins")
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,12 +36,9 @@ public class BulletinController {
     }
 
     @GetMapping("/bulletins")
-    public PageResponse<BulletinDto> index(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int perPage,
-            @RequestParam(defaultValue = "createdAt") String sort,
-            @RequestParam(defaultValue = "DESC") Sort.Direction order,
-            @RequestParam Map<String, String> queryParams) {
+    public PageResponse<BulletinDto> index(@RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int perPage, @RequestParam(defaultValue = "createdAt") String sort,
+            @RequestParam(defaultValue = "DESC") Sort.Direction order, @RequestParam Map<String, String> queryParams) {
         Map<String, String> filters = new HashMap<>(queryParams);
         filters.keySet().removeAll(Set.of("page", "perPage", "sort", "order"));
         return service.findAll(page, perPage, sort, order, filters);

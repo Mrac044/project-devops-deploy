@@ -4,7 +4,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     application
     alias(libs.plugins.versions)
-    alias(libs.plugins.version.catalog.update)
     alias(libs.plugins.spotless)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
@@ -80,16 +79,8 @@ spotless {
     java {
         importOrder()
         removeUnusedImports()
-        googleJavaFormat().aosp()
+        eclipse()
         formatAnnotations()
         leadingTabsToSpaces(4)
-        endWithNewline()
     }
-}
-
-// versionCatalogUpdate пишет свежие версии прямо в gradle/libs.versions.toml,
-// поэтому руками их сверять не нужно. Ключи не сортируются: порядок в каталоге
-// смысловой, по группам зависимостей.
-versionCatalogUpdate {
-    sortByKey = false
 }
