@@ -1,3 +1,13 @@
+FROM node:24-alpine AS frontend-builder
+
+WORKDIR /frontend
+
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
 # --- ЭТАП 1: Сборка приложения ---
 FROM eclipse-temurin:21-jdk-jammy AS builder
 
@@ -15,6 +25,7 @@ RUN ./gradlew dependencies --no-daemon || true
 
 # 4. Копируем исходный код
 COPY src ./src
+COPY --from=frontend-builder /frontend/dist ./src/main/resources/static
 
 # 5. Собираем проект
 RUN ./gradlew build --no-daemon
